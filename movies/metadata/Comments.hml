@@ -1,0 +1,180 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Comments
+  fields:
+    - name: id
+      type: ObjectId!
+    - name: date
+      type: Date
+    - name: email
+      type: String
+    - name: movieId
+      type: ObjectId
+    - name: name
+      type: String
+    - name: text
+      type: String
+  graphql:
+    typeName: Comments
+    inputTypeName: CommentsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_movies
+      dataConnectorObjectType: comments
+      fieldMapping:
+        id:
+          column:
+            name: _id
+        date:
+          column:
+            name: date
+        email:
+          column:
+            name: email
+        movieId:
+          column:
+            name: movie_id
+        name:
+          column:
+            name: name
+        text:
+          column:
+            name: text
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Comments
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - date
+          - email
+          - movieId
+          - name
+          - text
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CommentsBoolExp
+  operand:
+    object:
+      type: Comments
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: ObjectIdBoolExp
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: email
+          booleanExpressionType: StringBoolExp
+        - fieldName: movieId
+          booleanExpressionType: ObjectIdBoolExp
+        - fieldName: name
+          booleanExpressionType: StringBoolExp
+        - fieldName: text
+          booleanExpressionType: StringBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CommentsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CommentsAggExp
+  operand:
+    object:
+      aggregatedType: Comments
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: ObjectIdAggExp
+        - fieldName: date
+          aggregateExpression: DateAggExp
+        - fieldName: email
+          aggregateExpression: StringAggExp
+        - fieldName: movieId
+          aggregateExpression: ObjectIdAggExp
+        - fieldName: name
+          aggregateExpression: StringAggExp
+        - fieldName: text
+          aggregateExpression: StringAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: CommentsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CommentsOrderByExp
+  operand:
+    object:
+      orderedType: Comments
+      orderableFields:
+        - fieldName: id
+          orderByExpression: ObjectIdOrderByExp
+        - fieldName: date
+          orderByExpression: DateOrderByExp
+        - fieldName: email
+          orderByExpression: StringOrderByExp
+        - fieldName: movieId
+          orderByExpression: ObjectIdOrderByExp
+        - fieldName: name
+          orderByExpression: StringOrderByExp
+        - fieldName: text
+          orderByExpression: StringOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CommentsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Comments
+  objectType: Comments
+  source:
+    dataConnectorName: mongo_movies
+    collection: comments
+  filterExpressionType: CommentsBoolExp
+  aggregateExpression: CommentsAggExp
+  orderByExpression: CommentsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: comments
+      subscription:
+        rootField: comments
+    selectUniques:
+      - queryRootField: commentsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: commentsById
+    filterInputTypeName: CommentsFilterInput
+    aggregate:
+      queryRootField: commentsAggregate
+      subscription:
+        rootField: commentsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Comments
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

@@ -1,0 +1,205 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: NeighborhoodsGeometry
+  fields:
+    - name: coordinates
+      type: "[[[ExtendedJson]!]!]"
+    - name: type
+      type: String
+  graphql:
+    typeName: restaurantsNeighborhoodsGeometry
+    inputTypeName: restaurantsNeighborhoodsGeometryInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_restaurants
+      dataConnectorObjectType: neighborhoods_geometry
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: NeighborhoodsGeometry
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - coordinates
+          - type
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Neighborhoods
+  fields:
+    - name: id
+      type: ObjectId!
+    - name: geometry
+      type: NeighborhoodsGeometry
+    - name: name
+      type: String
+  graphql:
+    typeName: restaurantsNeighborhoods
+    inputTypeName: restaurantsNeighborhoodsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_restaurants
+      dataConnectorObjectType: neighborhoods
+      fieldMapping:
+        id:
+          column:
+            name: _id
+        geometry:
+          column:
+            name: geometry
+        name:
+          column:
+            name: name
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Neighborhoods
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - geometry
+          - name
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: NeighborhoodsGeometryBoolExp
+  operand:
+    object:
+      type: NeighborhoodsGeometry
+      comparableFields:
+        - fieldName: type
+          booleanExpressionType: StringBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: restaurantsNeighborhoodsGeometryBoolExp
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: NeighborhoodsBoolExp
+  operand:
+    object:
+      type: Neighborhoods
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: ObjectIdBoolExp
+        - fieldName: geometry
+          booleanExpressionType: NeighborhoodsGeometryBoolExp
+        - fieldName: name
+          booleanExpressionType: StringBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: restaurantsNeighborhoodsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: NeighborhoodsAggExp
+  operand:
+    object:
+      aggregatedType: Neighborhoods
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: ObjectIdAggExp
+        - fieldName: name
+          aggregateExpression: StringAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: restaurantsNeighborhoodsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: NeighborhoodsGeometryOrderByExp
+  operand:
+    object:
+      orderedType: NeighborhoodsGeometry
+      orderableFields:
+        - fieldName: type
+          orderByExpression: StringOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: restaurantsNeighborhoodsGeometryOrderByExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: NeighborhoodsOrderByExp
+  operand:
+    object:
+      orderedType: Neighborhoods
+      orderableFields:
+        - fieldName: id
+          orderByExpression: ObjectIdOrderByExp
+        - fieldName: geometry
+          orderByExpression: NeighborhoodsGeometryOrderByExp
+        - fieldName: name
+          orderByExpression: StringOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: restaurantsNeighborhoodsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Neighborhoods
+  objectType: Neighborhoods
+  source:
+    dataConnectorName: mongo_restaurants
+    collection: neighborhoods
+  filterExpressionType: NeighborhoodsBoolExp
+  aggregateExpression: NeighborhoodsAggExp
+  orderByExpression: NeighborhoodsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: neighborhoods
+      subscription:
+        rootField: neighborhoods
+    selectUniques:
+      - queryRootField: neighborhoodsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: neighborhoodsById
+    filterInputTypeName: restaurantsNeighborhoodsFilterInput
+    aggregate:
+      queryRootField: neighborhoodsAggregate
+      subscription:
+        rootField: neighborhoodsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Neighborhoods
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

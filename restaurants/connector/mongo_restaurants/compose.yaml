@@ -1,0 +1,14 @@
+services:
+  restaurants_mongo_restaurants:
+    build:
+      context: .
+      dockerfile: .hasura-connector/Dockerfile.mongo_restaurants
+    environment:
+      HASURA_SERVICE_TOKEN_SECRET: $RESTAURANTS_MONGO_RESTAURANTS_HASURA_SERVICE_TOKEN_SECRET
+      MONGODB_DATABASE_URI: $RESTAURANTS_MONGO_RESTAURANTS_MONGODB_DATABASE_URI
+      OTEL_EXPORTER_OTLP_ENDPOINT: $RESTAURANTS_MONGO_RESTAURANTS_OTEL_EXPORTER_OTLP_ENDPOINT
+      OTEL_SERVICE_NAME: $RESTAURANTS_MONGO_RESTAURANTS_OTEL_SERVICE_NAME
+    extra_hosts:
+      - local.hasura.dev:host-gateway
+    ports:
+      - 9709:8080

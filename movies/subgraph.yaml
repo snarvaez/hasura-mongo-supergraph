@@ -1,0 +1,19 @@
+kind: Subgraph
+version: v2
+definition:
+  name: movies
+  generator:
+    rootPath: .
+    namingConvention: graphql
+  includePaths:
+    - metadata
+  envMapping:
+    MOVIES_MONGO_MOVIES_AUTHORIZATION_HEADER:
+      fromEnv: MOVIES_MONGO_MOVIES_AUTHORIZATION_HEADER
+    MOVIES_MONGO_MOVIES_READ_URL:
+      fromEnv: MOVIES_MONGO_MOVIES_READ_URL
+    MOVIES_MONGO_MOVIES_WRITE_URL:
+      fromEnv: MOVIES_MONGO_MOVIES_WRITE_URL
+  connectors:
+    - path: connector/mongo_movies/connector.yaml
+      connectorLinkName: mongo_movies

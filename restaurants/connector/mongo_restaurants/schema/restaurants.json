@@ -1,0 +1,122 @@
+{
+  "name": "restaurants",
+  "collections": {
+    "restaurants": {
+      "type": "restaurants"
+    }
+  },
+  "objectTypes": {
+    "restaurants": {
+      "fields": {
+        "_id": {
+          "type": {
+            "scalar": "objectId"
+          }
+        },
+        "address": {
+          "type": {
+            "nullable": {
+              "object": "restaurants_address"
+            }
+          }
+        },
+        "borough": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        },
+        "cuisine": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        },
+        "grades": {
+          "type": {
+            "nullable": {
+              "arrayOf": {
+                "object": "restaurants_grades"
+              }
+            }
+          }
+        },
+        "name": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        },
+        "restaurant_id": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        }
+      }
+    },
+    "restaurants_address": {
+      "fields": {
+        "building": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        },
+        "coord": {
+          "type": {
+            "nullable": {
+              "arrayOf": {
+                "scalar": "double"
+              }
+            }
+          }
+        },
+        "street": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        },
+        "zipcode": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        }
+      }
+    },
+    "restaurants_grades": {
+      "fields": {
+        "date": {
+          "type": {
+            "nullable": {
+              "scalar": "date"
+            }
+          }
+        },
+        "grade": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        },
+        "score": {
+          "type": {
+            "nullable": {
+              "scalar": "int"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "neighborhoods",
+  "collections": {
+    "neighborhoods": {
+      "type": "neighborhoods"
+    }
+  },
+  "objectTypes": {
+    "neighborhoods": {
+      "fields": {
+        "_id": {
+          "type": {
+            "scalar": "objectId"
+          }
+        },
+        "geometry": {
+          "type": {
+            "nullable": {
+              "object": "neighborhoods_geometry"
+            }
+          }
+        },
+        "name": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        }
+      }
+    },
+    "neighborhoods_geometry": {
+      "fields": {
+        "coordinates": {
+          "type": {
+            "nullable": {
+              "arrayOf": {
+                "arrayOf": {
+                  "arrayOf": "extendedJSON"
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

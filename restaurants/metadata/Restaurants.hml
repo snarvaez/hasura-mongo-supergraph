@@ -1,0 +1,318 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: RestaurantsAddress
+  fields:
+    - name: building
+      type: String
+    - name: coord
+      type: "[Double!]"
+    - name: street
+      type: String
+    - name: zipcode
+      type: String
+  graphql:
+    typeName: restaurantsRestaurantsAddress
+    inputTypeName: restaurantsRestaurantsAddressInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_restaurants
+      dataConnectorObjectType: restaurants_address
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: RestaurantsAddress
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - building
+          - coord
+          - street
+          - zipcode
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: RestaurantsGrades
+  fields:
+    - name: date
+      type: Date
+    - name: grade
+      type: String
+    - name: score
+      type: Int
+  graphql:
+    typeName: restaurantsRestaurantsGrades
+    inputTypeName: restaurantsRestaurantsGradesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_restaurants
+      dataConnectorObjectType: restaurants_grades
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: RestaurantsGrades
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - date
+          - grade
+          - score
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Restaurants
+  fields:
+    - name: id
+      type: ObjectId!
+    - name: address
+      type: RestaurantsAddress
+    - name: borough
+      type: String
+    - name: cuisine
+      type: String
+    - name: grades
+      type: "[RestaurantsGrades!]"
+    - name: name
+      type: String
+    - name: restaurantId
+      type: String
+  graphql:
+    typeName: restaurantsRestaurants
+    inputTypeName: restaurantsRestaurantsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_restaurants
+      dataConnectorObjectType: restaurants
+      fieldMapping:
+        id:
+          column:
+            name: _id
+        address:
+          column:
+            name: address
+        borough:
+          column:
+            name: borough
+        cuisine:
+          column:
+            name: cuisine
+        grades:
+          column:
+            name: grades
+        name:
+          column:
+            name: name
+        restaurantId:
+          column:
+            name: restaurant_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Restaurants
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - address
+          - borough
+          - cuisine
+          - grades
+          - name
+          - restaurantId
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: RestaurantsAddressBoolExp
+  operand:
+    object:
+      type: RestaurantsAddress
+      comparableFields:
+        - fieldName: building
+          booleanExpressionType: StringBoolExp
+        - fieldName: street
+          booleanExpressionType: StringBoolExp
+        - fieldName: zipcode
+          booleanExpressionType: StringBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: restaurantsRestaurantsAddressBoolExp
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: RestaurantsGradesBoolExp
+  operand:
+    object:
+      type: RestaurantsGrades
+      comparableFields:
+        - fieldName: date
+          booleanExpressionType: DateBoolExp
+        - fieldName: grade
+          booleanExpressionType: StringBoolExp
+        - fieldName: score
+          booleanExpressionType: IntBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: restaurantsRestaurantsGradesBoolExp
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: RestaurantsBoolExp
+  operand:
+    object:
+      type: Restaurants
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: ObjectIdBoolExp
+        - fieldName: address
+          booleanExpressionType: RestaurantsAddressBoolExp
+        - fieldName: borough
+          booleanExpressionType: StringBoolExp
+        - fieldName: cuisine
+          booleanExpressionType: StringBoolExp
+        - fieldName: grades
+          booleanExpressionType: RestaurantsGradesBoolExp
+        - fieldName: name
+          booleanExpressionType: StringBoolExp
+        - fieldName: restaurantId
+          booleanExpressionType: StringBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: restaurantsRestaurantsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: RestaurantsAggExp
+  operand:
+    object:
+      aggregatedType: Restaurants
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: ObjectIdAggExp
+        - fieldName: borough
+          aggregateExpression: StringAggExp
+        - fieldName: cuisine
+          aggregateExpression: StringAggExp
+        - fieldName: name
+          aggregateExpression: StringAggExp
+        - fieldName: restaurantId
+          aggregateExpression: StringAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: restaurantsRestaurantsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: RestaurantsAddressOrderByExp
+  operand:
+    object:
+      orderedType: RestaurantsAddress
+      orderableFields:
+        - fieldName: building
+          orderByExpression: StringOrderByExp
+        - fieldName: street
+          orderByExpression: StringOrderByExp
+        - fieldName: zipcode
+          orderByExpression: StringOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: restaurantsRestaurantsAddressOrderByExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: RestaurantsOrderByExp
+  operand:
+    object:
+      orderedType: Restaurants
+      orderableFields:
+        - fieldName: id
+          orderByExpression: ObjectIdOrderByExp
+        - fieldName: address
+          orderByExpression: RestaurantsAddressOrderByExp
+        - fieldName: borough
+          orderByExpression: StringOrderByExp
+        - fieldName: cuisine
+          orderByExpression: StringOrderByExp
+        - fieldName: name
+          orderByExpression: StringOrderByExp
+        - fieldName: restaurantId
+          orderByExpression: StringOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: restaurantsRestaurantsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Restaurants
+  objectType: Restaurants
+  source:
+    dataConnectorName: mongo_restaurants
+    collection: restaurants
+  filterExpressionType: RestaurantsBoolExp
+  aggregateExpression: RestaurantsAggExp
+  orderByExpression: RestaurantsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: restaurants
+      subscription:
+        rootField: restaurants
+    selectUniques:
+      - queryRootField: restaurantsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: restaurantsById
+    filterInputTypeName: restaurantsRestaurantsFilterInput
+    aggregate:
+      queryRootField: restaurantsAggregate
+      subscription:
+        rootField: restaurantsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Restaurants
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

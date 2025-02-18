@@ -1,0 +1,144 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Sessions
+  fields:
+    - name: id
+      type: ObjectId!
+    - name: jwt
+      type: String
+    - name: userId
+      type: String
+  graphql:
+    typeName: Sessions
+    inputTypeName: SessionsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_movies
+      dataConnectorObjectType: sessions
+      fieldMapping:
+        id:
+          column:
+            name: _id
+        jwt:
+          column:
+            name: jwt
+        userId:
+          column:
+            name: user_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Sessions
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - jwt
+          - userId
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: SessionsBoolExp
+  operand:
+    object:
+      type: Sessions
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: ObjectIdBoolExp
+        - fieldName: jwt
+          booleanExpressionType: StringBoolExp
+        - fieldName: userId
+          booleanExpressionType: StringBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: SessionsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: SessionsAggExp
+  operand:
+    object:
+      aggregatedType: Sessions
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: ObjectIdAggExp
+        - fieldName: jwt
+          aggregateExpression: StringAggExp
+        - fieldName: userId
+          aggregateExpression: StringAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: SessionsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: SessionsOrderByExp
+  operand:
+    object:
+      orderedType: Sessions
+      orderableFields:
+        - fieldName: id
+          orderByExpression: ObjectIdOrderByExp
+        - fieldName: jwt
+          orderByExpression: StringOrderByExp
+        - fieldName: userId
+          orderByExpression: StringOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: SessionsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Sessions
+  objectType: Sessions
+  source:
+    dataConnectorName: mongo_movies
+    collection: sessions
+  filterExpressionType: SessionsBoolExp
+  aggregateExpression: SessionsAggExp
+  orderByExpression: SessionsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: sessions
+      subscription:
+        rootField: sessions
+    selectUniques:
+      - queryRootField: sessionsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: sessionsById
+    filterInputTypeName: SessionsFilterInput
+    aggregate:
+      queryRootField: sessionsAggregate
+      subscription:
+        rootField: sessionsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Sessions
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

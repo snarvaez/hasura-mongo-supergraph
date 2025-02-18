@@ -1,0 +1,20 @@
+kind: Subgraph
+version: v2
+definition:
+  name: restaurants
+  generator:
+    rootPath: .
+    graphqlTypeNamePrefix: restaurants
+    namingConvention: graphql
+  includePaths:
+    - metadata
+  envMapping:
+    RESTAURANTS_MONGO_RESTAURANTS_AUTHORIZATION_HEADER:
+      fromEnv: RESTAURANTS_MONGO_RESTAURANTS_AUTHORIZATION_HEADER
+    RESTAURANTS_MONGO_RESTAURANTS_READ_URL:
+      fromEnv: RESTAURANTS_MONGO_RESTAURANTS_READ_URL
+    RESTAURANTS_MONGO_RESTAURANTS_WRITE_URL:
+      fromEnv: RESTAURANTS_MONGO_RESTAURANTS_WRITE_URL
+  connectors:
+    - path: connector/mongo_restaurants/connector.yaml
+      connectorLinkName: mongo_restaurants
