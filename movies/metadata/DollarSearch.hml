@@ -1,0 +1,55 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: TitleSearchOutput
+  fields:
+    - name: title
+      type: String!
+  graphql:
+    typeName: TitleSearchOutput
+    inputTypeName: TitleSearchOutputInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_movies
+      dataConnectorObjectType: TitleSearchOutput
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: TitleSearchOutput
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - title
+
+---
+kind: Command
+version: v1
+definition:
+  name: DollarSearch
+  outputType: "[TitleSearchOutput!]!"
+  arguments:
+    - name: limit
+      type: Int!
+    - name: title
+      type: "[String!]!"
+  source:
+    dataConnectorName: mongo_movies
+    dataConnectorCommand:
+      function: dollarSearch
+  graphql:
+    rootFieldName: dollarSearch
+    rootFieldKind: Query
+  description: Movies dollar search
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DollarSearch
+  permissions:
+    - role: admin
+      allowExecution: true
+

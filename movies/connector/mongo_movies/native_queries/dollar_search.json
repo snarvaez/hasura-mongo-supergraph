@@ -1,0 +1,93 @@
+{
+    "name": "dollarSearch",
+    "representation": "function",
+    "inputCollection": "movies",
+    "description": "Movies dollar search",
+    "arguments": {
+      "title": {
+        "type": {
+          "arrayOf": {
+            "scalar": "string"
+          }
+        }
+      },
+      "limit": {
+        "type": {
+          "scalar": "int"
+        }
+      }
+    },
+    "resultDocumentType": "TitleSearch",
+    "objectTypes": {
+      "TitleSearch": {
+        "fields": {
+          "__value": {
+            "type": {
+              "arrayOf": {
+                "object": "TitleSearchOutput"
+              }
+            }
+          }
+        }
+      },
+      "TitleSearchOutput": {
+        "fields": {
+          "title": {
+            "type": {
+              "scalar": "string"
+            }
+          }
+        }
+      }
+    },
+    "pipeline": [
+      {
+        "$search": {
+          "index": "default",
+          "text": {
+            "query": "{{ title }}",
+            "path": ["title", "plot", "fullplot"],
+            "fuzzy": {
+              "maxEdits": 1,
+              "prefixLength": 1,
+              "maxExpansions": 256
+            }
+          }
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "title": 1,
+          "score": {
+            "$meta": "searchScore"
+          }
+        }
+      },
+      {
+        "$sort": {
+          "score": -1
+        }
+      },
+      {
+        "$limit": "{{ limit }}"
+      },
+      {
+        "$group": {
+          "_id": null,
+          "__value": {
+            "$push": {
+              "title": "$title"
+            }
+          }
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "__value": 1
+        }
+      }
+    ]
+  }
+  

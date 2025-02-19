@@ -9,8 +9,8 @@ definition:
     - name: type
       type: String
   graphql:
-    typeName: restaurantsNeighborhoodsGeometry
-    inputTypeName: restaurantsNeighborhoodsGeometryInput
+    typeName: NeighborhoodsGeometry
+    inputTypeName: NeighborhoodsGeometryInput
   dataConnectorTypeMapping:
     - dataConnectorName: mongo_restaurants
       dataConnectorObjectType: neighborhoods_geometry
@@ -40,8 +40,8 @@ definition:
     - name: name
       type: String
   graphql:
-    typeName: restaurantsNeighborhoods
-    inputTypeName: restaurantsNeighborhoodsInput
+    typeName: Neighborhoods
+    inputTypeName: NeighborhoodsInput
   dataConnectorTypeMapping:
     - dataConnectorName: mongo_restaurants
       dataConnectorObjectType: neighborhoods
@@ -86,7 +86,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsNeighborhoodsGeometryBoolExp
+    typeName: NeighborhoodsGeometryBoolExp
 
 ---
 kind: BooleanExpressionType
@@ -109,7 +109,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsNeighborhoodsBoolExp
+    typeName: NeighborhoodsBoolExp
 
 ---
 kind: AggregateExpression
@@ -127,7 +127,7 @@ definition:
   count:
     enable: true
   graphql:
-    selectTypeName: restaurantsNeighborhoodsAggExp
+    selectTypeName: NeighborhoodsAggExp
 
 ---
 kind: OrderByExpression
@@ -142,7 +142,7 @@ definition:
           orderByExpression: StringOrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: restaurantsNeighborhoodsGeometryOrderByExp
+    expressionTypeName: NeighborhoodsGeometryOrderByExp
 
 ---
 kind: OrderByExpression
@@ -161,7 +161,7 @@ definition:
           orderByExpression: StringOrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: restaurantsNeighborhoodsOrderByExp
+    expressionTypeName: NeighborhoodsOrderByExp
 
 ---
 kind: Model
@@ -186,7 +186,7 @@ definition:
           - id
         subscription:
           rootField: neighborhoodsById
-    filterInputTypeName: restaurantsNeighborhoodsFilterInput
+    filterInputTypeName: NeighborhoodsFilterInput
     aggregate:
       queryRootField: neighborhoodsAggregate
       subscription:

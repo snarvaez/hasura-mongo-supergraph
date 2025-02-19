@@ -775,6 +775,52 @@ definition:
                   type: named
                   name: Undefined
       object_types:
+        MoviesSearch:
+          fields:
+            __value:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: MoviesSearchOutput
+        MoviesSearchOutput:
+          fields:
+            genres:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: String
+            plot:
+              type:
+                type: named
+                name: String
+            score:
+              type:
+                type: named
+                name: Double
+            title:
+              type:
+                type: named
+                name: String
+            year:
+              type:
+                type: named
+                name: Int
+        TitleSearch:
+          fields:
+            __value:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: TitleSearchOutput
+        TitleSearchOutput:
+          fields:
+            title:
+              type:
+                type: named
+                name: String
         comments:
           fields:
             _id:
@@ -1513,14 +1559,6 @@ definition:
                 underlying_type:
                   type: named
                   name: String
-            preferences:
-              type:
-                type: nullable
-                underlying_type:
-                  type: named
-                  name: users_preferences
-        users_preferences:
-          fields: {}
       collections:
         - name: comments
           arguments: {}
@@ -1570,7 +1608,67 @@ definition:
               unique_columns:
                 - _id
           foreign_keys: {}
-      functions: []
+      functions:
+        - name: dollarSearch
+          description: Movies dollar search
+          arguments:
+            limit:
+              type:
+                type: named
+                name: Int
+            title:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: String
+          result_type:
+            type: array
+            element_type:
+              type: named
+              name: TitleSearchOutput
+        - name: moviesSearch
+          description: Movies approximate nearest neighbor search
+          arguments:
+            gteYear:
+              type:
+                type: named
+                name: Int
+            inGenres:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: String
+            limit:
+              type:
+                type: named
+                name: Int
+            lteYear:
+              type:
+                type: named
+                name: Int
+            ninGenres:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: String
+            numCandidates:
+              type:
+                type: named
+                name: Int
+            vector:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: String
+          result_type:
+            type: array
+            element_type:
+              type: named
+              name: MoviesSearchOutput
       procedures: []
     capabilities:
       version: 0.1.6

@@ -13,8 +13,8 @@ definition:
     - name: zipcode
       type: String
   graphql:
-    typeName: restaurantsRestaurantsAddress
-    inputTypeName: restaurantsRestaurantsAddressInput
+    typeName: RestaurantsAddress
+    inputTypeName: RestaurantsAddressInput
   dataConnectorTypeMapping:
     - dataConnectorName: mongo_restaurants
       dataConnectorObjectType: restaurants_address
@@ -46,8 +46,8 @@ definition:
     - name: score
       type: Int
   graphql:
-    typeName: restaurantsRestaurantsGrades
-    inputTypeName: restaurantsRestaurantsGradesInput
+    typeName: RestaurantsGrades
+    inputTypeName: RestaurantsGradesInput
   dataConnectorTypeMapping:
     - dataConnectorName: mongo_restaurants
       dataConnectorObjectType: restaurants_grades
@@ -86,8 +86,8 @@ definition:
     - name: restaurantId
       type: String
   graphql:
-    typeName: restaurantsRestaurants
-    inputTypeName: restaurantsRestaurantsInput
+    typeName: Restaurants
+    inputTypeName: RestaurantsInput
   dataConnectorTypeMapping:
     - dataConnectorName: mongo_restaurants
       dataConnectorObjectType: restaurants
@@ -152,7 +152,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsRestaurantsAddressBoolExp
+    typeName: RestaurantsAddressBoolExp
 
 ---
 kind: BooleanExpressionType
@@ -175,7 +175,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsRestaurantsGradesBoolExp
+    typeName: RestaurantsGradesBoolExp
 
 ---
 kind: BooleanExpressionType
@@ -206,7 +206,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsRestaurantsBoolExp
+    typeName: RestaurantsBoolExp
 
 ---
 kind: AggregateExpression
@@ -230,7 +230,7 @@ definition:
   count:
     enable: true
   graphql:
-    selectTypeName: restaurantsRestaurantsAggExp
+    selectTypeName: RestaurantsAggExp
 
 ---
 kind: OrderByExpression
@@ -249,7 +249,7 @@ definition:
           orderByExpression: StringOrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: restaurantsRestaurantsAddressOrderByExp
+    expressionTypeName: RestaurantsAddressOrderByExp
 
 ---
 kind: OrderByExpression
@@ -274,7 +274,7 @@ definition:
           orderByExpression: StringOrderByExp
       orderableRelationships: []
   graphql:
-    expressionTypeName: restaurantsRestaurantsOrderByExp
+    expressionTypeName: RestaurantsOrderByExp
 
 ---
 kind: Model
@@ -299,7 +299,7 @@ definition:
           - id
         subscription:
           rootField: restaurantsById
-    filterInputTypeName: restaurantsRestaurantsFilterInput
+    filterInputTypeName: RestaurantsFilterInput
     aggregate:
       queryRootField: restaurantsAggregate
       subscription:

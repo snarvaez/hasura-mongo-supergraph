@@ -1,0 +1,152 @@
+{
+    "name": "moviesSearch",
+    "representation": "function",
+    "inputCollection": "embedded_movies",
+    "description": "Movies approximate nearest neighbor search",
+    "arguments": {
+      "vector": {
+        "type": {
+          "arrayOf": {
+            "scalar": "string"
+          }
+        }
+      },
+      "ninGenres": {
+        "type": {
+          "arrayOf": {
+            "scalar": "string"
+          }
+        }
+      },
+      "inGenres": {
+        "type": {
+          "arrayOf": {
+            "scalar": "string"
+          }
+        }
+      },
+      "gteYear": {
+        "type": {
+          "scalar": "int"
+        }
+      },
+      "lteYear": {
+        "type": {
+          "scalar": "int"
+        }
+      },
+      "numCandidates": {
+        "type": {
+          "scalar": "int"
+        }
+      },
+      "limit": {
+        "type": {
+          "scalar": "int"
+        }
+      }
+    },
+    "resultDocumentType": "MoviesSearch",
+    "objectTypes": {
+      "MoviesSearch": {
+        "fields": {
+          "__value": {
+            "type": {
+              "arrayOf": {
+                "object": "MoviesSearchOutput"
+              }
+            }
+          }
+        }
+      },
+      "MoviesSearchOutput": {
+        "fields": {
+          "title": {
+            "type": {
+              "scalar": "string"
+            }
+          },
+          "plot": {
+            "type": {
+              "scalar": "string"
+            }
+          },
+          "genres": {
+            "type": {
+              "arrayOf": {
+                "scalar": "string"
+              }
+            }
+          },
+          "year": {
+            "type": {
+              "scalar": "int"
+            }
+          },
+          "score": {
+            "type": {
+              "scalar": "double"
+            }
+          }
+        }
+      }
+    },
+    "pipeline": [
+      {
+        "$vectorSearch": {
+          "index": "vector_index", 
+          "path": "plot_embedding", 
+          "filter": {
+            "$and": [
+              {
+                "genres": {
+                  "$nin": "{{ ninGenres }}", 
+                  "$in": "{{ inGenres }}"
+                }
+              }, {
+                "year": {
+                  "$gte": "{{ gteYear }}", 
+                  "$lte": "{{ lteYear }}"
+                }
+              }
+            ]
+          }, 
+          "queryVector": "{{ vector }}",
+         "numCandidates": "{{ numCandidates }}",
+         "limit": "{{ limit }}"
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "title": 1,
+          "genres": 1,
+          "plot": 1,
+          "year": 1,
+          "score": {
+            "$meta": "vectorSearchScore"
+          }
+        }
+      },
+      {
+        "$group": {
+          "_id": null,
+          "__value": {
+            "$addToSet": {
+              "title": "$title",
+              "genres": "$genres",
+              "plot": "$plot",
+              "year": "$year",
+              "score": "$score"
+            }
+          }
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "__value": 1
+        }
+      }
+    ]
+  }

@@ -2,29 +2,6 @@
 kind: ObjectType
 version: v1
 definition:
-  name: UsersPreferences
-  fields: []
-  graphql:
-    typeName: UsersPreferences
-    inputTypeName: UsersPreferencesInput
-  dataConnectorTypeMapping:
-    - dataConnectorName: mongo_movies
-      dataConnectorObjectType: users_preferences
-
----
-kind: TypePermissions
-version: v1
-definition:
-  typeName: UsersPreferences
-  permissions:
-    - role: admin
-      output:
-        allowedFields: []
-
----
-kind: ObjectType
-version: v1
-definition:
   name: Users
   fields:
     - name: id
@@ -35,8 +12,6 @@ definition:
       type: String
     - name: password
       type: String
-    - name: preferences
-      type: UsersPreferences
   graphql:
     typeName: Users
     inputTypeName: UsersInput
@@ -56,9 +31,6 @@ definition:
         password:
           column:
             name: password
-        preferences:
-          column:
-            name: preferences
 
 ---
 kind: TypePermissions
@@ -73,24 +45,12 @@ definition:
           - email
           - name
           - password
-          - preferences
-
----
-kind: BooleanExpressionType
-version: v1
-definition:
-  name: UsersPreferencesBoolExp
-  operand:
-    object:
-      type: UsersPreferences
-      comparableFields: []
-      comparableRelationships: []
-  logicalOperators:
-    enable: true
-  isNull:
-    enable: true
-  graphql:
-    typeName: UsersPreferencesBoolExp
+    - role: user
+      output: 
+        allowedFields:
+          - email
+          - name
+          - password
 
 ---
 kind: BooleanExpressionType
@@ -109,8 +69,6 @@ definition:
           booleanExpressionType: StringBoolExp
         - fieldName: password
           booleanExpressionType: StringBoolExp
-        - fieldName: preferences
-          booleanExpressionType: UsersPreferencesBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -145,19 +103,6 @@ definition:
 kind: OrderByExpression
 version: v1
 definition:
-  name: UsersPreferencesOrderByExp
-  operand:
-    object:
-      orderedType: UsersPreferences
-      orderableFields: []
-      orderableRelationships: []
-  graphql:
-    expressionTypeName: UsersPreferencesOrderByExp
-
----
-kind: OrderByExpression
-version: v1
-definition:
   name: UsersOrderByExp
   operand:
     object:
@@ -171,8 +116,6 @@ definition:
           orderByExpression: StringOrderByExp
         - fieldName: password
           orderByExpression: StringOrderByExp
-        - fieldName: preferences
-          orderByExpression: UsersPreferencesOrderByExp
       orderableRelationships: []
   graphql:
     expressionTypeName: UsersOrderByExp
@@ -216,4 +159,30 @@ definition:
       select:
         filter: null
         allowSubscriptions: true
+    - role: user
+      select:
+        filter: 
+          fieldComparison:
+            field: email
+            operator: _eq
+            value: 
+              sessionVariable: x-hasura-email
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: comments
+  sourceType: Users
+  target:
+    model:
+      name: Comments
+      relationshipType: Array
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: email
+      target:
+        modelField:
+          - fieldName: email
 

@@ -1,5 +1,5 @@
 services:
-  app_mongo_movies:
+  movies_mongo_movies:
     build:
       context: .
       dockerfile: .hasura-connector/Dockerfile.mongo_movies
@@ -11,4 +11,4 @@ services:
     extra_hosts:
       - local.hasura.dev:host-gateway
     ports:
-      - 9648:8080
+      - 6746:8080

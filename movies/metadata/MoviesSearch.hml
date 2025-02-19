@@ -1,0 +1,77 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: MoviesSearchOutput
+  fields:
+    - name: genres
+      type: "[String!]!"
+    - name: plot
+      type: String!
+    - name: score
+      type: Double!
+    - name: title
+      type: String!
+    - name: year
+      type: Int!
+  graphql:
+    typeName: MoviesSearchOutput
+    inputTypeName: MoviesSearchOutputInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: mongo_movies
+      dataConnectorObjectType: MoviesSearchOutput
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: MoviesSearchOutput
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - genres
+          - plot
+          - score
+          - title
+          - year
+
+---
+kind: Command
+version: v1
+definition:
+  name: MoviesSearch
+  outputType: "[MoviesSearchOutput!]!"
+  arguments:
+    - name: gteYear
+      type: Int!
+    - name: inGenres
+      type: "[String!]!"
+    - name: limit
+      type: Int!
+    - name: lteYear
+      type: Int!
+    - name: ninGenres
+      type: "[String!]!"
+    - name: numCandidates
+      type: Int!
+    - name: vector
+      type: "[String!]!"
+  source:
+    dataConnectorName: mongo_movies
+    dataConnectorCommand:
+      function: moviesSearch
+  graphql:
+    rootFieldName: moviesSearch
+    rootFieldKind: Query
+  description: Movies approximate nearest neighbor search
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: MoviesSearch
+  permissions:
+    - role: admin
+      allowExecution: true
+

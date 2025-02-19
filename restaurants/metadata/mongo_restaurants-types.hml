@@ -4,7 +4,7 @@ version: v1
 definition:
   name: ObjectId
   graphql:
-    typeName: restaurantsObjectId
+    typeName: ObjectId_1
 
 ---
 kind: BooleanExpressionType
@@ -32,7 +32,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsObjectIdBoolExp
+    typeName: ObjectIdBoolExp_1
 
 ---
 kind: DataConnectorScalarRepresentation
@@ -42,7 +42,7 @@ definition:
   dataConnectorScalarType: ObjectId
   representation: ObjectId
   graphql:
-    comparisonExpressionTypeName: restaurantsObjectIdComparisonExp
+    comparisonExpressionTypeName: ObjectIdComparisonExp_1
 
 ---
 kind: ScalarType
@@ -50,7 +50,7 @@ version: v1
 definition:
   name: ExtendedJson
   graphql:
-    typeName: restaurantsExtendedJson
+    typeName: ExtendedJson
 
 ---
 kind: DataConnectorScalarRepresentation
@@ -60,7 +60,7 @@ definition:
   dataConnectorScalarType: String
   representation: String
   graphql:
-    comparisonExpressionTypeName: restaurantsStringComparisonExp
+    comparisonExpressionTypeName: StringComparisonExp_1
 
 ---
 kind: BooleanExpressionType
@@ -100,7 +100,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsExtendedJsonBoolExp
+    typeName: ExtendedJsonBoolExp
 
 ---
 kind: DataConnectorScalarRepresentation
@@ -110,7 +110,7 @@ definition:
   dataConnectorScalarType: ExtendedJSON
   representation: ExtendedJson
   graphql:
-    comparisonExpressionTypeName: restaurantsExtendedJsonComparisonExp
+    comparisonExpressionTypeName: ExtendedJsonComparisonExp
 
 ---
 kind: BooleanExpressionType
@@ -150,7 +150,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsStringBoolExp
+    typeName: StringBoolExp_1
 
 ---
 kind: DataConnectorScalarRepresentation
@@ -160,7 +160,7 @@ definition:
   dataConnectorScalarType: Int
   representation: Int
   graphql:
-    comparisonExpressionTypeName: restaurantsIntComparisonExp
+    comparisonExpressionTypeName: IntComparisonExp_1
 
 ---
 kind: AggregateExpression
@@ -184,7 +184,7 @@ definition:
   countDistinct:
     enable: true
   graphql:
-    selectTypeName: restaurantsObjectIdAggExp
+    selectTypeName: ObjectIdAggExp_1
 
 ---
 kind: AggregateExpression
@@ -216,7 +216,7 @@ definition:
   countDistinct:
     enable: true
   graphql:
-    selectTypeName: restaurantsStringAggExp
+    selectTypeName: StringAggExp_1
 
 ---
 kind: OrderByExpression
@@ -229,7 +229,7 @@ definition:
       enableOrderByDirections:
         enableAll: true
   graphql:
-    expressionTypeName: restaurantsObjectIdOrderByExp
+    expressionTypeName: ObjectIdOrderByExp_1
 
 ---
 kind: OrderByExpression
@@ -242,7 +242,7 @@ definition:
       enableOrderByDirections:
         enableAll: true
   graphql:
-    expressionTypeName: restaurantsStringOrderByExp
+    expressionTypeName: StringOrderByExp_1
 
 ---
 kind: ScalarType
@@ -250,7 +250,7 @@ version: v1
 definition:
   name: Double
   graphql:
-    typeName: restaurantsDouble
+    typeName: Double_1
 
 ---
 kind: BooleanExpressionType
@@ -286,7 +286,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsDoubleBoolExp
+    typeName: DoubleBoolExp_1
 
 ---
 kind: DataConnectorScalarRepresentation
@@ -296,7 +296,7 @@ definition:
   dataConnectorScalarType: Double
   representation: Double
   graphql:
-    comparisonExpressionTypeName: restaurantsDoubleComparisonExp
+    comparisonExpressionTypeName: DoubleComparisonExp_1
 
 ---
 kind: ScalarType
@@ -304,7 +304,7 @@ version: v1
 definition:
   name: Date
   graphql:
-    typeName: restaurantsDate
+    typeName: Date_1
 
 ---
 kind: BooleanExpressionType
@@ -340,7 +340,7 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsDateBoolExp
+    typeName: DateBoolExp_1
 
 ---
 kind: DataConnectorScalarRepresentation
@@ -350,7 +350,7 @@ definition:
   dataConnectorScalarType: Date
   representation: Date
   graphql:
-    comparisonExpressionTypeName: restaurantsDateComparisonExp
+    comparisonExpressionTypeName: DateComparisonExp_1
 
 ---
 kind: BooleanExpressionType
@@ -386,5 +386,5 @@ definition:
   isNull:
     enable: true
   graphql:
-    typeName: restaurantsIntBoolExp
+    typeName: IntBoolExp_1
 
