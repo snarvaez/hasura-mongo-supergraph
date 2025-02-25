@@ -4,8 +4,6 @@ version: v1
 definition:
   name: MoviesSearchOutput
   fields:
-    - name: genres
-      type: "[String!]!"
     - name: plot
       type: String!
     - name: score
@@ -30,7 +28,6 @@ definition:
     - role: admin
       output:
         allowedFields:
-          - genres
           - plot
           - score
           - title
@@ -45,18 +42,14 @@ definition:
   arguments:
     - name: gteYear
       type: Int!
-    - name: inGenres
-      type: "[String!]!"
     - name: limit
       type: Int!
     - name: lteYear
       type: Int!
-    - name: ninGenres
-      type: "[String!]!"
     - name: numCandidates
       type: Int!
     - name: vector
-      type: "[String!]!"
+      type: "[Float!]!"
   source:
     dataConnectorName: mongo_movies
     dataConnectorCommand:

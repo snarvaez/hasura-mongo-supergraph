@@ -785,12 +785,6 @@ definition:
                   name: MoviesSearchOutput
         MoviesSearchOutput:
           fields:
-            genres:
-              type:
-                type: array
-                element_type:
-                  type: named
-                  name: String
             plot:
               type:
                 type: named
@@ -1634,12 +1628,6 @@ definition:
               type:
                 type: named
                 name: Int
-            inGenres:
-              type:
-                type: array
-                element_type:
-                  type: named
-                  name: String
             limit:
               type:
                 type: named
@@ -1648,12 +1636,6 @@ definition:
               type:
                 type: named
                 name: Int
-            ninGenres:
-              type:
-                type: array
-                element_type:
-                  type: named
-                  name: String
             numCandidates:
               type:
                 type: named
@@ -1663,7 +1645,7 @@ definition:
                 type: array
                 element_type:
                   type: named
-                  name: String
+                  name: Float
           result_type:
             type: array
             element_type:

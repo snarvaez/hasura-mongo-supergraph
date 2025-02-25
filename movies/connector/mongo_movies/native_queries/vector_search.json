@@ -7,21 +7,7 @@
       "vector": {
         "type": {
           "arrayOf": {
-            "scalar": "string"
-          }
-        }
-      },
-      "ninGenres": {
-        "type": {
-          "arrayOf": {
-            "scalar": "string"
-          }
-        }
-      },
-      "inGenres": {
-        "type": {
-          "arrayOf": {
-            "scalar": "string"
+            "scalar": "double"
           }
         }
       },
@@ -71,13 +57,6 @@
               "scalar": "string"
             }
           },
-          "genres": {
-            "type": {
-              "arrayOf": {
-                "scalar": "string"
-              }
-            }
-          },
           "year": {
             "type": {
               "scalar": "int"
@@ -99,11 +78,6 @@
           "filter": {
             "$and": [
               {
-                "genres": {
-                  "$nin": "{{ ninGenres }}", 
-                  "$in": "{{ inGenres }}"
-                }
-              }, {
                 "year": {
                   "$gte": "{{ gteYear }}", 
                   "$lte": "{{ lteYear }}"
@@ -120,7 +94,6 @@
         "$project": {
           "_id": 0,
           "title": 1,
-          "genres": 1,
           "plot": 1,
           "year": 1,
           "score": {
@@ -134,7 +107,6 @@
           "__value": {
             "$addToSet": {
               "title": "$title",
-              "genres": "$genres",
               "plot": "$plot",
               "year": "$year",
               "score": "$score"
