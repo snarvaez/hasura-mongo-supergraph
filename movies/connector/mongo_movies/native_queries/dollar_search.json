@@ -1,5 +1,5 @@
 {
-    "name": "dollarSearch",
+    "name": "movieSearch",
     "representation": "function",
     "inputCollection": "movies",
     "description": "Movies dollar search",

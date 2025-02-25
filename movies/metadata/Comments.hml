@@ -210,3 +210,21 @@ definition:
       target:
         modelField:
           - fieldName: email
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: movie
+  sourceType: Comments
+  target:
+    model:
+      name: Movies
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: movieId
+      target:
+        modelField:
+          - fieldName: id

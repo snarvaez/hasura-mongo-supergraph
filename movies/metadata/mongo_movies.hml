@@ -1609,7 +1609,7 @@ definition:
                 - _id
           foreign_keys: {}
       functions:
-        - name: dollarSearch
+        - name: movieSearch
           description: Movies dollar search
           arguments:
             limit:
@@ -1627,7 +1627,7 @@ definition:
             element_type:
               type: named
               name: TitleSearchOutput
-        - name: moviesSearch
+        - name: movieVectorSearch
           description: Movies approximate nearest neighbor search
           arguments:
             gteYear:

@@ -28,7 +28,7 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: DollarSearch
+  name: MovieSearch
   outputType: "[TitleSearchOutput!]!"
   arguments:
     - name: limit
@@ -38,9 +38,9 @@ definition:
   source:
     dataConnectorName: mongo_movies
     dataConnectorCommand:
-      function: dollarSearch
+      function: movieSearch
   graphql:
-    rootFieldName: dollarSearch
+    rootFieldName: movieSearch
     rootFieldKind: Query
   description: Movies dollar search
 
@@ -48,7 +48,7 @@ definition:
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: DollarSearch
+  commandName: MovieSearch
   permissions:
     - role: admin
       allowExecution: true

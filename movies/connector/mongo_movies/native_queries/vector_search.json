@@ -1,5 +1,5 @@
 {
-    "name": "moviesSearch",
+    "name": "movieVectorSearch",
     "representation": "function",
     "inputCollection": "embedded_movies",
     "description": "Movies approximate nearest neighbor search",

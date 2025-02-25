@@ -40,7 +40,7 @@ definition:
 kind: Command
 version: v1
 definition:
-  name: MoviesSearch
+  name: MovieVectorSearch
   outputType: "[MoviesSearchOutput!]!"
   arguments:
     - name: gteYear
@@ -60,9 +60,9 @@ definition:
   source:
     dataConnectorName: mongo_movies
     dataConnectorCommand:
-      function: moviesSearch
+      function: movieVectorSearch
   graphql:
-    rootFieldName: moviesSearch
+    rootFieldName: movieVectorSearch
     rootFieldKind: Query
   description: Movies approximate nearest neighbor search
 
@@ -70,7 +70,7 @@ definition:
 kind: CommandPermissions
 version: v1
 definition:
-  commandName: MoviesSearch
+  commandName: MovieVectorSearch
   permissions:
     - role: admin
       allowExecution: true
