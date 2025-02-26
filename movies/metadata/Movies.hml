@@ -703,7 +703,9 @@ definition:
           orderByExpression: StringOrderByExp
         - fieldName: year
           orderByExpression: IntOrderByExp
-      orderableRelationships: []
+      orderableRelationships:
+        - relationshipName: embedded_movies
+        - relationshipName: comments
   graphql:
     expressionTypeName: MoviesOrderByExp
 
@@ -782,3 +784,4 @@ definition:
       target:
         modelField:
           - fieldName: movieId
+

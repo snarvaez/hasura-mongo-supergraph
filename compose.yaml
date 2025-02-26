@@ -1,6 +1,7 @@
 include:
   - path: movies/connector/mongo_movies/compose.yaml
   - path: restaurants/connector/mongo_restaurants/compose.yaml
+  - path: movies/connector/openai/compose.yaml
 services:
   engine:
     build:

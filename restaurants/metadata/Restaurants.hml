@@ -316,3 +316,21 @@ definition:
         filter: null
         allowSubscriptions: true
 
+---
+kind: Relationship
+version: v1
+definition:
+  name: theatre_zipcode
+  sourceType: Restaurants
+  target:
+    model:
+      subgraph: movies
+      name: Theaters
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: restaurantId
+      target:
+        modelField:
+          - fieldName: theaterId

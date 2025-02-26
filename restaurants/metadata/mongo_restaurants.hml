@@ -859,6 +859,12 @@ definition:
                 underlying_type:
                   type: named
                   name: String
+            zipcode:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: String
         restaurants_address:
           fields:
             building:

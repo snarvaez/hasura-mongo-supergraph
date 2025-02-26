@@ -26,6 +26,13 @@
               "scalar": "int"
             }
           }
+        },
+        "zipcode": {
+          "type": {
+            "nullable": {
+              "scalar": "string"
+            }
+          }
         }
       }
     },

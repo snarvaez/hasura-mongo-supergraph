@@ -1002,7 +1002,7 @@ definition:
                 type: nullable
                 underlying_type:
                   type: named
-                  name: Int
+                  name: ExtendedJSON
         embedded_movies_awards:
           fields:
             nominations:
@@ -1467,6 +1467,12 @@ definition:
                 underlying_type:
                   type: named
                   name: Int
+            zipcode:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: String
         theaters_location:
           fields:
             address:
@@ -1636,16 +1642,12 @@ definition:
               type:
                 type: named
                 name: Int
-            numCandidates:
-              type:
-                type: named
-                name: Int
             vector:
               type:
                 type: array
                 element_type:
                   type: named
-                  name: Float
+                  name: Double
           result_type:
             type: array
             element_type:

@@ -14,6 +14,16 @@ definition:
       fromEnv: MOVIES_MONGO_MOVIES_READ_URL
     MOVIES_MONGO_MOVIES_WRITE_URL:
       fromEnv: MOVIES_MONGO_MOVIES_WRITE_URL
+    MOVIES_OPENAI_AUTHORIZATION_HEADER:
+      fromEnv: MOVIES_OPENAI_AUTHORIZATION_HEADER
+    MOVIES_OPENAI_READ_URL:
+      fromEnv: MOVIES_OPENAI_READ_URL
+    MOVIES_OPENAI_WRITE_URL:
+      fromEnv: MOVIES_OPENAI_WRITE_URL
+    MOVIES_OPENAI_OPENAI_API_KEY: 
+      fromEnv: MOVIES_OPENAI_OPENAI_API_KEY
   connectors:
     - path: connector/mongo_movies/connector.yaml
       connectorLinkName: mongo_movies
+    - path: connector/openai/connector.yaml
+      connectorLinkName: openai

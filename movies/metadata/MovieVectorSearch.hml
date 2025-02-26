@@ -46,10 +46,8 @@ definition:
       type: Int!
     - name: lteYear
       type: Int!
-    - name: numCandidates
-      type: Int!
     - name: vector
-      type: "[Float!]!"
+      type: "[Double!]!"
   source:
     dataConnectorName: mongo_movies
     dataConnectorCommand:

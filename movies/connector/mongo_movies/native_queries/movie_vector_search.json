@@ -21,11 +21,6 @@
           "scalar": "int"
         }
       },
-      "numCandidates": {
-        "type": {
-          "scalar": "int"
-        }
-      },
       "limit": {
         "type": {
           "scalar": "int"
@@ -86,7 +81,7 @@
             ]
           }, 
           "queryVector": "{{ vector }}",
-         "numCandidates": "{{ numCandidates }}",
+         "numCandidates": 10000,
          "limit": "{{ limit }}"
         }
       },

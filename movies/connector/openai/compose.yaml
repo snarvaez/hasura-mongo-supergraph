@@ -1,0 +1,14 @@
+services:
+  movies_openai:
+    build:
+      context: .
+      dockerfile: .hasura-connector/Dockerfile
+    environment:
+      HASURA_SERVICE_TOKEN_SECRET: $MOVIES_OPENAI_HASURA_SERVICE_TOKEN_SECRET
+      OTEL_EXPORTER_OTLP_ENDPOINT: $MOVIES_OPENAI_OTEL_EXPORTER_OTLP_ENDPOINT
+      OTEL_SERVICE_NAME: $MOVIES_OPENAI_OTEL_SERVICE_NAME
+      OPENAI_API_KEY: $MOVIES_OPENAI_OPENAI_API_KEY
+    extra_hosts:
+      - local.hasura.dev:host-gateway
+    ports:
+      - 5172:8080

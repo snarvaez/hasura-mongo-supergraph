@@ -1,0 +1,76 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: EmbeddingResponse
+  fields:
+    - name: embedding
+      type: "[Float!]!"
+    - name: model
+      type: String!
+    - name: status
+      type: String!
+  graphql:
+    typeName: EmbeddingResponse
+    inputTypeName: EmbeddingResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: openai
+      dataConnectorObjectType: EmbeddingResponse
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: EmbeddingResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - embedding
+          - model
+          - status
+
+---
+kind: Command
+version: v1
+definition:
+  name: SearchMoviesWithVectors
+  outputType: EmbeddingResponse!
+  arguments:
+    - name: text
+      type: String!
+      description: The string to vectorise
+  source:
+    dataConnectorName: openai
+    dataConnectorCommand:
+      function: searchMoviesWithVectors
+  graphql:
+    rootFieldName: searchMoviesWithVectors
+    rootFieldKind: Query
+  description: retrieveVectors
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: SearchMoviesWithVectors
+  permissions:
+    - role: admin
+      allowExecution: true
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: VectorSearch
+  sourceType: EmbeddingResponse
+  target:
+    command:
+      name: MovieVectorSearch
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: embedding
+      target:
+        argument:
+          argumentName: vector

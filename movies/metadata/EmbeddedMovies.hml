@@ -230,7 +230,7 @@ definition:
     - name: writers
       type: "[String!]"
     - name: year
-      type: Int
+      type: ExtendedJson
   graphql:
     typeName: EmbeddedMovies
     inputTypeName: EmbeddedMoviesInput
@@ -510,7 +510,7 @@ definition:
         - fieldName: type
           booleanExpressionType: StringBoolExp
         - fieldName: year
-          booleanExpressionType: IntBoolExp
+          booleanExpressionType: ExtendedJsonBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -518,46 +518,6 @@ definition:
     enable: true
   graphql:
     typeName: EmbeddedMoviesBoolExp
-
----
-kind: AggregateExpression
-version: v1
-definition:
-  name: EmbeddedMoviesAggExp
-  operand:
-    object:
-      aggregatedType: EmbeddedMovies
-      aggregatableFields:
-        - fieldName: id
-          aggregateExpression: ObjectIdAggExp
-        - fieldName: fullplot
-          aggregateExpression: StringAggExp
-        - fieldName: lastupdated
-          aggregateExpression: StringAggExp
-        - fieldName: metacritic
-          aggregateExpression: IntAggExp
-        - fieldName: numMflixComments
-          aggregateExpression: IntAggExp
-        - fieldName: plot
-          aggregateExpression: StringAggExp
-        - fieldName: poster
-          aggregateExpression: StringAggExp
-        - fieldName: rated
-          aggregateExpression: StringAggExp
-        - fieldName: released
-          aggregateExpression: DateAggExp
-        - fieldName: runtime
-          aggregateExpression: IntAggExp
-        - fieldName: title
-          aggregateExpression: StringAggExp
-        - fieldName: type
-          aggregateExpression: StringAggExp
-        - fieldName: year
-          aggregateExpression: IntAggExp
-  count:
-    enable: true
-  graphql:
-    selectTypeName: EmbeddedMoviesAggExp
 
 ---
 kind: OrderByExpression
@@ -708,8 +668,9 @@ definition:
         - fieldName: type
           orderByExpression: StringOrderByExp
         - fieldName: year
-          orderByExpression: IntOrderByExp
-      orderableRelationships: []
+          orderByExpression: ExtendedJsonOrderByExp
+      orderableRelationships:
+        - relationshipName: movies
   graphql:
     expressionTypeName: EmbeddedMoviesOrderByExp
 
@@ -723,7 +684,6 @@ definition:
     dataConnectorName: mongo_movies
     collection: embedded_movies
   filterExpressionType: EmbeddedMoviesBoolExp
-  aggregateExpression: EmbeddedMoviesAggExp
   orderByExpression: EmbeddedMoviesOrderByExp
   graphql:
     selectMany:
@@ -741,6 +701,7 @@ definition:
       queryRootField: embeddedMoviesAggregate
       subscription:
         rootField: embeddedMoviesAggregate
+  aggregateExpression: EmbeddedMoviesAggExp
 
 ---
 kind: ModelPermissions
@@ -770,3 +731,44 @@ definition:
       target:
         modelField:
           - fieldName: id
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EmbeddedMoviesAggExp
+  operand:
+    object:
+      aggregatedType: EmbeddedMovies
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: ObjectIdAggExp
+        - fieldName: fullplot
+          aggregateExpression: StringAggExp
+        - fieldName: lastupdated
+          aggregateExpression: StringAggExp
+        - fieldName: metacritic
+          aggregateExpression: IntAggExp
+        - fieldName: numMflixComments
+          aggregateExpression: IntAggExp
+        - fieldName: plot
+          aggregateExpression: StringAggExp
+        - fieldName: poster
+          aggregateExpression: StringAggExp
+        - fieldName: rated
+          aggregateExpression: StringAggExp
+        - fieldName: released
+          aggregateExpression: DateAggExp
+        - fieldName: runtime
+          aggregateExpression: IntAggExp
+        - fieldName: title
+          aggregateExpression: StringAggExp
+        - fieldName: type
+          aggregateExpression: StringAggExp
+        - fieldName: year
+          aggregateExpression: ExtendedJsonAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: EmbeddedMoviesAggExp
+

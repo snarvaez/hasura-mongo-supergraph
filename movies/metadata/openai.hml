@@ -1,0 +1,69 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: openai
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: MOVIES_OPENAI_READ_URL
+      write:
+        valueFromEnv: MOVIES_OPENAI_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: MOVIES_OPENAI_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        Float:
+          representation:
+            type: float64
+          aggregate_functions: {}
+          comparison_operators:
+            _eq:
+              type: equal
+        String:
+          representation:
+            type: string
+          aggregate_functions: {}
+          comparison_operators:
+            _eq:
+              type: equal
+      object_types:
+        EmbeddingResponse:
+          fields:
+            embedding:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Float
+            model:
+              type:
+                type: named
+                name: String
+            status:
+              type:
+                type: named
+                name: String
+      collections: []
+      functions:
+        - name: searchMoviesWithVectors
+          description: retrieveVectors
+          arguments:
+            text:
+              description: The string to vectorise
+              type:
+                type: named
+                name: String
+          result_type:
+            type: named
+            name: EmbeddingResponse
+      procedures: []
+    capabilities:
+      version: 0.1.6
+      capabilities:
+        query:
+          variables: {}
+          nested_fields: {}
+        mutation: {}
