@@ -175,7 +175,11 @@
           }
         },
         "year": {
-          "type": "extendedJSON"
+          "type": {
+            "nullable": {
+              "scalar": "int"
+            }
+          }
         }
       }
     },

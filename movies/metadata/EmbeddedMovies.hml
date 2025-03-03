@@ -230,7 +230,7 @@ definition:
     - name: writers
       type: "[String!]"
     - name: year
-      type: ExtendedJson
+      type: Int
   graphql:
     typeName: EmbeddedMovies
     inputTypeName: EmbeddedMoviesInput
@@ -510,7 +510,7 @@ definition:
         - fieldName: type
           booleanExpressionType: StringBoolExp
         - fieldName: year
-          booleanExpressionType: ExtendedJsonBoolExp
+          booleanExpressionType: IntBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -668,7 +668,7 @@ definition:
         - fieldName: type
           orderByExpression: StringOrderByExp
         - fieldName: year
-          orderByExpression: ExtendedJsonOrderByExp
+          orderByExpression: IntOrderByExp
       orderableRelationships:
         - relationshipName: movies
   graphql:
@@ -766,7 +766,7 @@ definition:
         - fieldName: type
           aggregateExpression: StringAggExp
         - fieldName: year
-          aggregateExpression: ExtendedJsonAggExp
+          aggregateExpression: IntAggExp
   count:
     enable: true
   graphql:

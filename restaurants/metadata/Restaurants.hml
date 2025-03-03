@@ -85,6 +85,8 @@ definition:
       type: String
     - name: restaurantId
       type: String
+    - name: zipcode
+      type: String
   graphql:
     typeName: Restaurants
     inputTypeName: RestaurantsInput
@@ -113,6 +115,9 @@ definition:
         restaurantId:
           column:
             name: restaurant_id
+        zipcode:
+          column:
+            name: zipcode
 
 ---
 kind: TypePermissions
@@ -130,6 +135,7 @@ definition:
           - grades
           - name
           - restaurantId
+          - zipcode
 
 ---
 kind: BooleanExpressionType
@@ -200,6 +206,8 @@ definition:
           booleanExpressionType: StringBoolExp
         - fieldName: restaurantId
           booleanExpressionType: StringBoolExp
+        - fieldName: zipcode
+          booleanExpressionType: StringBoolExp
       comparableRelationships: []
   logicalOperators:
     enable: true
@@ -226,6 +234,8 @@ definition:
         - fieldName: name
           aggregateExpression: StringAggExp
         - fieldName: restaurantId
+          aggregateExpression: StringAggExp
+        - fieldName: zipcode
           aggregateExpression: StringAggExp
   count:
     enable: true
@@ -272,7 +282,10 @@ definition:
           orderByExpression: StringOrderByExp
         - fieldName: restaurantId
           orderByExpression: StringOrderByExp
-      orderableRelationships: []
+        - fieldName: zipcode
+          orderByExpression: StringOrderByExp
+      orderableRelationships:
+        - relationshipName: theatre_zipcode
   graphql:
     expressionTypeName: RestaurantsOrderByExp
 
@@ -330,7 +343,7 @@ definition:
   mapping:
     - source:
         fieldPath:
-          - fieldName: restaurantId
+          - fieldName: zipcode
       target:
         modelField:
-          - fieldName: theaterId
+          - fieldName: zipcode

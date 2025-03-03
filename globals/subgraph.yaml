@@ -6,6 +6,7 @@ definition:
     rootPath: .
   includePaths:
     - metadata
+    - auth-config.hml
   envMapping:
     JWT_SECRET: 
       fromEnv: JWT_SECRET

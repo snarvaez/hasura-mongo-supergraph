@@ -1002,7 +1002,7 @@ definition:
                 type: nullable
                 underlying_type:
                   type: named
-                  name: ExtendedJSON
+                  name: Int
         embedded_movies_awards:
           fields:
             nominations:
@@ -1559,6 +1559,14 @@ definition:
                 underlying_type:
                   type: named
                   name: String
+            preferences:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: users_preferences
+        users_preferences:
+          fields: {}
       collections:
         - name: comments
           arguments: {}

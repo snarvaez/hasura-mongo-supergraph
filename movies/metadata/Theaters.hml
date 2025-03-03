@@ -370,3 +370,21 @@ definition:
         filter: null
         allowSubscriptions: true
 
+---
+kind: Relationship
+version: v1
+definition:
+  name: restaurant_zipcode
+  sourceType: Theaters
+  target:
+    model:
+      subgraph: restaurants
+      name: Restaurants
+      relationshipType: Array
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: zipcode
+      target:
+        modelField:
+          - fieldName: zipcode
